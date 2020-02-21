@@ -18,17 +18,27 @@ class _InputPageState extends State<InputPage> {
             Expanded(
               child: Row(
                 children: <Widget>[
-                  MyContainer(),
-                  MyContainer(),
+                  MyCardView(
+                    color: Color(0xFF201F33),
+                  ),
+                  MyCardView(
+                    color: Color(0xFF201F33),
+                  ),
                 ],
               ),
             ),
-            MyContainer(),
+            MyCardView(
+              color: Color(0xFF201F33),
+            ),
             Expanded(
               child: Row(
                 children: <Widget>[
-                  MyContainer(),
-                  MyContainer(),
+                  MyCardView(
+                    color: Color(0xFF201F33),
+                  ),
+                  MyCardView(
+                    color: Color(0xFF201F33),
+                  ),
                 ],
               ),
             ),
@@ -39,18 +49,18 @@ class _InputPageState extends State<InputPage> {
   }
 }
 
-class MyContainer extends StatelessWidget {
-  final EdgeInsetsGeometry margin;
+class MyCardView extends StatelessWidget {
+  final Color color;
 
-  MyContainer({this.margin = const EdgeInsets.all(10.0)});
+  MyCardView({@required this.color});
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        margin: margin,
+        margin: EdgeInsets.all(15.0),
         decoration: BoxDecoration(
-          color: Color(0xFF201F33),
+          color: color,
           borderRadius: BorderRadius.circular(5.0),
         ),
       ),
