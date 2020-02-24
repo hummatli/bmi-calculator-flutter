@@ -19,7 +19,7 @@ class ReusableCard extends StatelessWidget {
         SizedBox(height: 15.0),
         Text(
           title,
-          style: labelTextStyle,
+          style: kLabelTextStyle,
         )
       ],
     );
