@@ -1,10 +1,8 @@
+import 'package:bmi_calculator/constants.dart';
+import 'package:bmi_calculator/icon_content.dart';
+import 'package:bmi_calculator/reusable_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-const bottomContainerHeight = 80.0;
-const activeCardColor = Color(0xFF201F33);
-const inactiveCardColor = Color(0xFF111328);
-const bottomContainerColor = Color(0xFFE22A60);
 
 enum Gender {
   MALE,
@@ -18,28 +16,6 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   Gender selectedGender;
-
-//  Color maleCardColor = inactiveCardColor;
-//  Color femaleCardColor = inactiveCardColor;
-//
-//  void updateColor(Gender gender) {
-//    //male card
-//    if (gender == Gender.MALE) {
-//      if (maleCardColor == inactiveCardColor) {
-//        maleCardColor = activeCardColor;
-//        femaleCardColor = inactiveCardColor;
-//      } else {
-//        maleCardColor = inactiveCardColor;
-//      }
-//    } else if (gender == Gender.FEMALE) {
-//      if (femaleCardColor == inactiveCardColor) {
-//        femaleCardColor = activeCardColor;
-//        maleCardColor = inactiveCardColor;
-//      } else {
-//        femaleCardColor = inactiveCardColor;
-//      }
-//    }
-//  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,11 +31,11 @@ class _InputPageState extends State<InputPage> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: MyCardView(
+                    child: IconContent(
                       color: selectedGender == Gender.MALE
                           ? activeCardColor
                           : inactiveCardColor,
-                      child: MyIconView(
+                      child: ReusableCard(
                         iconData: FontAwesomeIcons.mars,
                         title: 'MALE',
                       ),
@@ -71,11 +47,11 @@ class _InputPageState extends State<InputPage> {
                     ),
                   ),
                   Expanded(
-                    child: MyCardView(
+                    child: IconContent(
                       color: selectedGender == Gender.FEMALE
                           ? activeCardColor
                           : inactiveCardColor,
-                      child: MyIconView(
+                      child: ReusableCard(
                         title: 'FEMALE',
                         iconData: FontAwesomeIcons.venus,
                       ),
@@ -90,7 +66,7 @@ class _InputPageState extends State<InputPage> {
               ),
             ),
             Expanded(
-              child: MyCardView(
+              child: IconContent(
                 color: activeCardColor,
               ),
             ),
@@ -98,12 +74,12 @@ class _InputPageState extends State<InputPage> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: MyCardView(
+                    child: IconContent(
                       color: activeCardColor,
                     ),
                   ),
                   Expanded(
-                    child: MyCardView(
+                    child: IconContent(
                       color: activeCardColor,
                     ),
                   ),
@@ -117,57 +93,6 @@ class _InputPageState extends State<InputPage> {
               height: bottomContainerHeight,
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class MyIconView extends StatelessWidget {
-  final IconData iconData;
-  final String title;
-
-  MyIconView({@required this.title, @required this.iconData});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Icon(
-          iconData,
-          size: 80.0,
-        ),
-        SizedBox(height: 15.0),
-        Text(
-          title,
-          style: TextStyle(
-            color: Color(0xFF8D8E98),
-            fontSize: 18.0,
-          ),
-        )
-      ],
-    );
-  }
-}
-
-class MyCardView extends StatelessWidget {
-  final Color color;
-  final Widget child;
-  final Function onTap;
-
-  MyCardView({@required this.color, this.child, this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        child: child,
-        margin: EdgeInsets.all(15.0),
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(5.0),
         ),
       ),
     );
