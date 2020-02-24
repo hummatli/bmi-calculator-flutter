@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class IconContent extends StatelessWidget {
+class ReusableCard extends StatelessWidget {
   final Color color;
   final Widget child;
   final Function onTap;
 
-  IconContent({@required this.color, this.child, this.onTap});
+  ReusableCard({@required this.color, this.child, this.onTap});
 
   @override
   Widget build(BuildContext context) {

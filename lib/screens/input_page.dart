@@ -1,6 +1,10 @@
+import 'package:bmi_calculator/calculator_brain.dart';
+import 'package:bmi_calculator/components/bottom_buttom.dart';
 import 'package:bmi_calculator/constants.dart';
-import 'package:bmi_calculator/icon_content.dart';
-import 'package:bmi_calculator/reusable_card.dart';
+import 'package:bmi_calculator/components/reusable_card.dart';
+import 'package:bmi_calculator/screens/results_page.dart';
+import 'package:bmi_calculator/components/icon_content.dart';
+import 'package:bmi_calculator/components/round_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -35,11 +39,11 @@ class _InputPageState extends State<InputPage> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: IconContent(
+                    child: ReusableCard(
                       color: selectedGender == Gender.MALE
                           ? kActiveCardColor
                           : kInactiveCardColor,
-                      child: ReusableCard(
+                      child: IconContent(
                         iconData: FontAwesomeIcons.mars,
                         title: 'MALE',
                       ),
@@ -51,11 +55,11 @@ class _InputPageState extends State<InputPage> {
                     ),
                   ),
                   Expanded(
-                    child: IconContent(
+                    child: ReusableCard(
                       color: selectedGender == Gender.FEMALE
                           ? kActiveCardColor
                           : kInactiveCardColor,
-                      child: ReusableCard(
+                      child: IconContent(
                         title: 'FEMALE',
                         iconData: FontAwesomeIcons.venus,
                       ),
@@ -70,7 +74,7 @@ class _InputPageState extends State<InputPage> {
               ),
             ),
             Expanded(
-              child: IconContent(
+              child: ReusableCard(
                 color: kActiveCardColor,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -124,7 +128,7 @@ class _InputPageState extends State<InputPage> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: IconContent(
+                    child: ReusableCard(
                       color: kActiveCardColor,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -164,7 +168,7 @@ class _InputPageState extends State<InputPage> {
                     ),
                   ),
                   Expanded(
-                    child: IconContent(
+                    child: ReusableCard(
                       color: kActiveCardColor,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -206,37 +210,26 @@ class _InputPageState extends State<InputPage> {
                 ],
               ),
             ),
-            Container(
-              color: kBottomContainerColor,
-              margin: EdgeInsets.only(top: 10.0),
-              width: double.infinity,
-              height: kBottomContainerHeight,
+            BottomButton(
+              'CALCULATE',
+              onTap: () {
+                CalculatorBrain calc =
+                    CalculatorBrain(height: height, weight: weight);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ResultsPage(
+                      bmiResult: calc.calculateBMI(),
+                      resultText: calc.getResult().title,
+                      interpretation: calc.getResult().interpretation,
+                    ),
+                  ),
+                );
+              },
             ),
           ],
         ),
       ),
-    );
-  }
-}
-
-class RoundIconButton extends StatelessWidget {
-  final IconData icon;
-  final Function onPressed;
-
-  RoundIconButton({@required this.icon, @required this.onPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      child: Icon(icon),
-      constraints: BoxConstraints.tightFor(
-        width: 56.0,
-        height: 56.0,
-      ),
-      shape: CircleBorder(),
-      fillColor: Color(0xFF4C4F5E),
-      elevation: 0.0,
-      onPressed: onPressed,
     );
   }
 }
