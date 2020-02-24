@@ -55,37 +55,35 @@ class _InputPageState extends State<InputPage> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: GestureDetector(
+                    child: MyCardView(
+                      color: selectedGender == Gender.MALE
+                          ? activeCardColor
+                          : inactiveCardColor,
+                      child: MyIconView(
+                        iconData: FontAwesomeIcons.mars,
+                        title: 'MALE',
+                      ),
                       onTap: () {
                         setState(() {
                           selectedGender = Gender.MALE;
                         });
                       },
-                      child: MyCardView(
-                        color: selectedGender == Gender.MALE
-                            ? activeCardColor
-                            : inactiveCardColor,
-                        child: MyIconView(
-                          iconData: FontAwesomeIcons.mars,
-                          title: 'MALE',
-                        ),
-                      ),
                     ),
                   ),
                   Expanded(
-                    child: GestureDetector(
+                    child: MyCardView(
+                      color: selectedGender == Gender.FEMALE
+                          ? activeCardColor
+                          : inactiveCardColor,
+                      child: MyIconView(
+                        title: 'FEMALE',
+                        iconData: FontAwesomeIcons.venus,
+                      ),
                       onTap: () {
                         setState(() {
                           selectedGender = Gender.FEMALE;
                         });
                       },
-                      child: MyCardView(
-                        color: selectedGender == Gender.FEMALE
-                            ? activeCardColor
-                            : inactiveCardColor,
-                        child: MyIconView(
-                            title: 'FEMALE', iconData: FontAwesomeIcons.venus),
-                      ),
                     ),
                   ),
                 ],
@@ -156,17 +154,21 @@ class MyIconView extends StatelessWidget {
 class MyCardView extends StatelessWidget {
   final Color color;
   final Widget child;
+  final Function onTap;
 
-  MyCardView({@required this.color, this.child});
+  MyCardView({@required this.color, this.child, this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: child,
-      margin: EdgeInsets.all(15.0),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(5.0),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        child: child,
+        margin: EdgeInsets.all(15.0),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(5.0),
+        ),
       ),
     );
   }
